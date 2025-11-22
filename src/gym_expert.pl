@@ -1,6 +1,7 @@
 :- module(gym_expert, [
     rule/1,
-    recommend/11
+    recommend/11,
+    advise/0
 ]).
 
 goal(strength).
@@ -185,9 +186,6 @@ warmup_tip(moderate, _, _, add_ramp_up_set).
 warmup_tip(_, _, low, longer_general_warmup).
 warmup_tip(_, _, _, standard_warmup).
 
-/* ===================================================
-   Core inference: recommend/11
-   =================================================== */
 /*
 recommend(
   Goal,           % strength | hypertrophy | endurance
@@ -239,3 +237,55 @@ recommend(Goal, RepsLast, TargetReps, RPE, PerfDrop,
         action(technique_focus, Tech),
         action(warmup, Warmup)
     ].
+
+advise :-
+    writeln('--- Gym Expert Adviser ---'),
+    ask_goal(Goal),
+    ask_number('Reps last set (e.g., 5): ', RepsLast),
+    ask_number('Target reps (e.g., 5): ', TargetReps),
+    ask_number('RPE last set (1-10): ', RPE),
+    ask_number('Performance drop % vs first set (0-100): ', PerfDrop),
+    ask_enum('Soreness (none/mild/moderate/severe): ',
+             [none,mild,moderate,severe], Soreness),
+    ask_number('Sleep hours last night (e.g., 7.0): ', SleepH),
+    ask_enum('Sleep quality (poor/ok/good): ',
+             [poor,ok,good], SleepQ),
+    ask_enum('HRV (low/normal/high): ',
+             [low,normal,high], HRV),
+    ask_enum('Recovery (low/medium/high): ',
+             [low,medium,high], Recovery),
+
+    recommend(Goal, RepsLast, TargetReps, RPE, PerfDrop,
+              Soreness, SleepH, SleepQ, HRV, Recovery, Advice),
+
+    writeln('Advice:'),
+    print_advice(Advice).
+
+ask_goal(Goal) :-
+    writeln('Goal (strength/hypertrophy/endurance): '),
+    read(Goal),
+    ( goal(Goal)
+    -> true
+    ;  writeln('Invalid goal.'), ask_goal(Goal)
+    ).
+
+ask_number(Prompt, N) :-
+    write(Prompt),
+    read(N),
+    ( number(N)
+    -> true
+    ;  writeln('Please enter a number.'), ask_number(Prompt, N)
+    ).
+
+ask_enum(Prompt, Options, Val) :-
+    write(Prompt),
+    read(V),
+    ( member(V, Options)
+    -> Val = V
+    ;  writeln('Invalid option.'), ask_enum(Prompt, Options, Val)
+    ).
+
+print_advice([]).
+print_advice([action(K,V)|T]) :-
+    format(' - ~w: ~w~n', [K, V]),
+    print_advice(T).
