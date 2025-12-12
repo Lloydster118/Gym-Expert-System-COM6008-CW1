@@ -1,0 +1,15 @@
+31 ?- run_tests.
+--- Running Gym Expert System Tests ---
+PASS: T1 has rest_seconds
+PASS: T1 load is increase/hold
+PASS: T1 deload = no
+PASS: T2 load decreases
+PASS: T2 rest increases above base
+PASS: T3 rest increases above base
+PASS: T3 volume reduces
+PASS: T3 warmup adjusted
+PASS: T4 deload = yes
+PASS: T5 rest >= base
+PASS: T5 deload = no
+--- All tests executed ---
+true 
