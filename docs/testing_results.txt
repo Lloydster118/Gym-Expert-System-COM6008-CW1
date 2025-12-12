@@ -37,3 +37,25 @@ PASS: T10 volume aggressively reduced
 --- All tests executed ---
 true 
 
+66 ?- 
+|    run_tests.
+--- Running Gym Expert System Tests ---
+PASS: T1 has rest_seconds
+PASS: T1 load is increase/hold
+PASS: T1 deload = no
+PASS: T2 load decreases
+PASS: T2 rest increases above base
+PASS: T3 rest increases above base
+PASS: T3 volume reduces
+PASS: T3 warmup adjusted
+PASS: T4 deload = yes
+PASS: T5 rest >= base
+PASS: T5 deload = no
+PASS: T6 RPE=7 still allows increase
+PASS: T7 RPE=8 causes hold
+PASS: T8 rest increases due to fatigue
+PASS: T9 missed reps but recovery prevents decrease
+PASS: T10 deload triggered under extreme fatigue
+PASS: T10 volume aggressively reduced
+--- All tests executed ---
+true .
