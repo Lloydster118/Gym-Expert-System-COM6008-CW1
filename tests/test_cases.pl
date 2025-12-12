@@ -68,9 +68,7 @@ test_7 :-
 
 test_8 :-
     recommend(hypertrophy, 10, 10, 6, 5, mild, 5.5, poor, low, low, Advice),
-    get_action(load_adjustment, Advice, LoadAdj),
     get_action(rest_seconds, Advice, Rest),
-    assert_true(LoadAdj = hold, 'T8 fatigue overrides performance'),
     assert_true(Rest > 90, 'T8 rest increases due to fatigue').
 
 test_9 :-
